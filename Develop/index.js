@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
-const generateMarkdown = require('./utils/generateMarkdown')
+const generateMarkdown = require('./utils/generateMarkdown.js')
+const fs = require('fs');
 
 // array of questions for user
 const readmeQuest = () => {
@@ -56,27 +57,14 @@ const readmeQuest = () => {
             default: true
         },
         {
-            type: 'confirm',
-            name: 'writeCont',
-            message: 'Would you like to write your own Contribution guidelines?',
-            when: ({contConfirm}) => {
-                if (contConfirm) {
-                    return false;
-                } else {
-                    return true;
-                }
-            },
-            default: true
-        },
-        {
             type: 'input',
             name: 'selfCont',
             message: 'Please write your own Contribution guidelines.',
-            when: ({writeCont}) => {
-                if(writeCont) {
-                    return true;
-                } else {
+            when: ({contConfirm}) => {
+                if(contConfirm) {
                     return false;
+                } else {
+                    return true;
                 }
             }
         },
@@ -84,14 +72,14 @@ const readmeQuest = () => {
             type: 'checkbox',
             name: 'badges',
             message: 'Please choose any badges to add to your project.',
-            choices: ['JavaScript', 'Node']
+            choices: ['JavaScript', 'Node', 'Boys', 'Fun Times']
         }
     ])
 };
 
 const installPrompt = readmeData => {
-    if(!readmeData.install) {
-        readmeData.install = []
+    if(!readmeData.installation) {
+        readmeData.installation = []
     }
     return inquirer.prompt ([
         {
@@ -115,7 +103,7 @@ const installPrompt = readmeData => {
         }
     ])
         .then(installData => {
-            readmeData.install.push(installData.install);
+            readmeData.installation.push(installData);
             if (installData.installConfirm) {
                 return installPrompt(readmeData);
             } else {
@@ -179,7 +167,7 @@ const featuresPrompt = readmeData => {
     return inquirer.prompt ([
         {
             type: 'input',
-            name: 'features',
+            name: 'feature',
             message: 'List any features of your application.',
             validate: features => {
                 if (features) {
@@ -198,30 +186,39 @@ const featuresPrompt = readmeData => {
         }
     ])
     .then(featuresData => {
-        readmeData.features.push(featuresData.features);
+        readmeData.features.push(featuresData);
         if (featuresData.featureConfirm) {
             return featuresPrompt(readmeData);
         } else {
             return readmeData;
         }
     })
-}
+};
 
+const writeFile = fileContent => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./test.md', fileContent, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-// function to write README file
-// function writeToFile(fileName, data) {
-// }
-
-// function to initialize program
-//function init() {
-
-//}
+            resolve({
+                ok: true,
+                message: 'File Created!'
+            });
+        });
+    });
+};
 
 // function call to initialize program
 readmeQuest()
     .then(installPrompt)
     .then(creditsPrompt)
     .then(featuresPrompt)
-    .then(installData => {
-        console.log(installData)
+    .then(readmeData => {
+        return generateMarkdown(readmeData);
+    })
+    .then(readmeMD => {
+      return  writeFile(readmeMD)
     })
