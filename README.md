@@ -28,7 +28,7 @@
   ## Usage
   Attached is a short video showing the application in full use.
   
-  ![Video Link](https://drive.google.com/file/d/18SNBcz_30mQF5T-9cu4vC_4dweCbwxMe/view)
+  [Video Link](https://drive.google.com/file/d/18SNBcz_30mQF5T-9cu4vC_4dweCbwxMe/view)
 
   ## Credits
     
