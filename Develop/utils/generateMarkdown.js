@@ -6,8 +6,8 @@ const installInfo = readmeData => {
     ${readmeData.installation
       .map(({ install }) => {
         return `
-          ${install}
-          `;
+        ${install}
+        `;
     })
   .join(' ')}
   `;
@@ -18,8 +18,8 @@ const creditsInfo = readmeData => {
     ${readmeData.credits
     .map(({ contributor, contGitHub }) => {
       return `
-        Contributor: ${contributor}
-        GitHub: https://github.com/${contGitHub}
+      Contributor: ${contributor}
+      GitHub: https://github.com/${contGitHub}
       `;
     })
   .join(' ')}
@@ -31,7 +31,7 @@ const featuresInfo = readmeData => {
     ${readmeData.features
     .map(({ feature }) => {
       return `
-        ${feature}
+      ${feature}
       `;
     })
   .join(' ')}
@@ -41,7 +41,7 @@ const featuresInfo = readmeData => {
 const contributingInfo = readmeData => {
   if(readmeData.contConfirm) {
     return `
-      Please follow the standard Contributor Covenant when looking to make any additions to this project. The Standard Contributor Covenant can be found at [https://www.contributor-covenant.org/](https://www.contributor-covenant.org/)
+    Please follow the standard Contributor Covenant when looking to make any additions to this project. The Standard Contributor Covenant can be found at [https://www.contributor-covenant.org/](https://www.contributor-covenant.org/)
     `;
   } else {
     return `
@@ -79,37 +79,37 @@ const badgesDisp = data => {
 module.exports = readmeData => {
 
 return `
-  # ${readmeData.title}
+# ${readmeData.title}
 
-  ${badgesDisp(readmeData)}
+${badgesDisp(readmeData)}
 
-  ## Description
-  ${readmeData.description}
+## Description
+${readmeData.description}
 
-  ## Table of Contents
-    * [Installation](#installation)
-    * [Usage](#usage)
-    * [Credits](#credits)
-    * [License](#license)
-    * [Contribution](#contributing)
+## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+* [Contribution](#contributing)
 
-  ## Installation
-  ${installInfo(readmeData)}
+## Installation
+${installInfo(readmeData)}
 
-  ## Usage
+## Usage
   ${readmeData.usage}
 
-  ## Credits
-  ${creditsInfo(readmeData)}
+## Credits
+${creditsInfo(readmeData)}
 
-  ## License
-  ${readmeData.license}
-  ${licenseLink(readmeData)}
+## License
+${readmeData.license}
+${licenseLink(readmeData)}
 
-  ## Features
-  ${featuresInfo(readmeData)}
+## Features
+${featuresInfo(readmeData)}
 
-  ## Contributing
-  ${contributingInfo(readmeData)}
-  `;
+## Contributing
+${contributingInfo(readmeData)}
+`;
 };
