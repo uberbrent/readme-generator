@@ -69,10 +69,10 @@ const readmeQuest = () => {
             }
         },
         {
-            type: 'checkbox',
+            type: 'list',
             name: 'badges',
             message: 'Please choose any badges to add to your project.',
-            choices: ['JavaScript', 'Node', 'Boys', 'Fun Times']
+            choices: ['JavaScript', 'Node', 'MIT', 'Apache']
         }
     ])
 };
@@ -197,7 +197,7 @@ const featuresPrompt = readmeData => {
 
 const writeFile = fileContent => {
     return new Promise((resolve, reject) => {
-        fs.writeFile('./test.md', fileContent, err => {
+        fs.writeFile('./readme.md', fileContent, err => {
             if (err) {
                 reject(err);
                 return;
